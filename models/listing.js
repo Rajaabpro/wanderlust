@@ -7,10 +7,16 @@ const listingSchema = new Schema({
         required: true
     },
     description: String,
-    image:{
-        type: String,
-        default: defaultImage,
-        set: (v) => v === "" ? defaultImage : v,
+    image: {
+        url: {
+            type: String,
+            default: defaultImage,
+            set: (v) => v === "" ? defaultImage : v,
+        },
+        filename: {
+            type: String,
+            default: "listingimage"
+        }
     },
     price: Number,
     location: String,
