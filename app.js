@@ -15,7 +15,7 @@ async function main() {
 }
 
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+    res.send("Hi im root");
 });
 
 app.listen(3000, () => {
