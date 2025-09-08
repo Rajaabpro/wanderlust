@@ -36,6 +36,18 @@ app.get("/listings/:id", async (req, res) => {
     res.render("listings/show.ejs", {listing});
 });
 
+//new Route
+app.get("/listings/new", (req, res) => {
+    res.render("listings/new.ejs");
+});
+
+//create Route
+app.post("/listings", async (req, res) => {
+    let newListing = new Listing(req.body);
+    await newListing.save();
+    res.redirect("/listings");
+});
+
 // app.get("/testListings", async (req, res) => {
 //     let samleListings = new Listing({
 //         title: "Sample Listing 1",
