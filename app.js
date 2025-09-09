@@ -44,8 +44,35 @@ app.get("/listings/:id", async (req, res) => {
     const listing = await Listing.findById(id);
     res.render("listings/show.ejs", {listing});
 });
-
-
+//edit Route
+app.get("/listings/:id/edit", async (req, res) => {
+    let {id} = req.params;
+    const listing = await Listing.findById(id);
+    res.render("listings/edit.ejs", {listing});
+});
+//update Route
+app.put("/listings/:id", async (req, res) => {
+    let {id} = req.params;
+    const listing = await Listing.findByIdAndUpdate(id, req.body, {new: true});
+    res.redirect(`/listings/${id}`);
+});
+//delete Route
+app.delete("/listings/:id", async (req, res) => {
+    let {id} = req.params;
+    await Listing.findByIdAndDelete(id);
+    res.redirect("/listings");
+});
+//edit Route
+app.get("/listings/:id/edit", async (req, res) => {
+    let {id} = req.params;
+    const listing = await Listing.findById(id);
+    res.render("listings/edit.ejs", {listing});
+});
+//update Route
+    
+app.listen(3000, () => {
+    console.log("Server started on port 3000");
+});
 
 
 
@@ -61,7 +88,3 @@ app.get("/listings/:id", async (req, res) => {
 //     await samleListings.save();
 //     res.send("Listings saved to database successfully");
 // });
-    
-app.listen(3000, () => {
-    console.log("Server started on port 3000");
-});
