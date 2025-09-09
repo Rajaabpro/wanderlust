@@ -24,11 +24,20 @@ app.get("/", (req, res) => {
     res.send("Hi im root");
 });
 //index Route
-app.get("/Listings", async (req, res) => {
+app.get("/listings", async (req, res) => {
     const allListings = await Listing.find({});
     res.render("listings/index.ejs", {allListings})
 });
-
+//create Route
+app.post("/listings", async (req, res) => {
+    let newListing = new Listing(req.body);
+    await newListing.save();
+    res.redirect("/listings");
+});
+//new Route
+app.get("/listings/new", (req, res) => {
+    res.render("listings/new.ejs");
+});
 //show Route
 app.get("/listings/:id", async (req, res) => {
     let {id} = req.params;
@@ -36,17 +45,9 @@ app.get("/listings/:id", async (req, res) => {
     res.render("listings/show.ejs", {listing});
 });
 
-//new Route
-app.get("/listings/new", (req, res) => {
-    res.render("listings/new.ejs");
-});
 
-//create Route
-app.post("/listings", async (req, res) => {
-    let newListing = new Listing(req.body);
-    await newListing.save();
-    res.redirect("/listings");
-});
+
+
 
 // app.get("/testListings", async (req, res) => {
 //     let samleListings = new Listing({
