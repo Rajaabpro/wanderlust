@@ -1,12 +1,21 @@
 <% layout("layouts/bolierplate.ejs") %>
-  <body>
+<link rel="stylesheet" href="/style.css">
     <h3>All Listings</h3>
-    <form method="GET" action="/listings/new">
-      <button>Create New Listing</button>
-    </form>
-    <ul>
-      <% for(let listing of allListings) { %>
-      <li><a href="/listings/<%= listing._id %>"> <%= listing.title %> </a></li>
-      <% } %>
-    </ul>
-  </body>
+    <!-- <form method="GET" action="/listings/new">
+    </form> -->
+    <div class="row row-cols-1 row-cols-lg-3 g-4">
+    <% for(let listing of allListings) { %>
+
+    <div class="card">
+      <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image">
+      <div class="card-body">
+        <h5 class="card-title"><%= listing.title %></h5>
+        <p class="card-text"><%= listing.description %></p>
+        <p class="card-text"><%= listing.price %><span>Rs</span>/day</p>
+        <p class="card-text"><%= listing.location %></p>
+        <p class="card-text"><%= listing.country %></p>
+        <a href="/listings/<%= listing._id %>" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+    <% } %>
+    </div>
