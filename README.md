@@ -25,16 +25,21 @@ WanderLust is a simple, educational clone of an Airbnb-style listings app. It de
 ### 📸 Screenshots
 
 <p align="center">
-  <img src="assets/allListings.png" alt="WanderLust Demo Screenshot" width="80%" />
+  <img src="assets/allListings.png" alt="All Listings page" width="85%" />
   <br>
-  <p align="center">
-  <img src="assets/view.png" alt="WanderLust Demo Screenshot" width="80%" />
+  <em>All Listings</em>
+</p>
+
+<p align="center">
+  <img src="assets/view.png" alt="Listing details page" width="85%" />
   <br>
-  <p align="center">
-  <img src="assets/new.png" alt="WanderLust Demo Screenshot" width="80%" />
+  <em>Listing Details</em>
+</p>
+
+<p align="center">
+  <img src="assets/new.png" alt="Create new listing page" width="85%" />
   <br>
-  <em>Add your screenshot at <code>public/screenshot.png</code></em>
-  
+  <em>Create New Listing</em>
 </p>
 
 ---
