@@ -1,13 +1,13 @@
 <% layout("layouts/bolierplate.ejs") %>
 <h3 class="mb-3">Create a New Listing</h3>
-<form method="POST" action="/listings" class="row g-3">
+<form method="POST" action="/listings" class="row g-3 needs-validation" novalidate>
   <div class="col-12">
     <label class="form-label">Title</label>
-    <input name="listing[title]" type="text" class="form-control" placeholder="Enter title" required />
+    <input name="listing[title]" type="text" class="form-control" placeholder="Enter title" />
   </div>
   <div class="col-12">
     <label class="form-label">Description</label>
-    <textarea name="listing[description]" class="form-control" rows="3" placeholder="Enter description" required></textarea>
+    <textarea name="listing[description]" class="form-control" rows="3" placeholder="Enter description"></textarea>
   </div>
   <div class="col-12 col-md-6">
     <label class="form-label">Image URL</label>
