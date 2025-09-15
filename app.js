@@ -53,6 +53,7 @@ app.get("/listings/:id", wrapAsync(async (req, res) => {
 
 //Create Route
 app.post("/listings", wrapAsync(async (req, res) => {
+  if (!req.body.listing) throw new ExpressError(400, "Invalid Listing Data");
   const newListing = new Listing(req.body.listing);
   await newListing.save();
   res.redirect("/listings");
@@ -94,9 +95,13 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
 //   res.send("successful testing");
 // });
 
+app.use((req, res, next) => {
+  next(new ExpressError(404, "Page Not Found"));
+});
 
 app.use((err, req, res, next) => {
-  let {statusCode, message} = err;
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Something went wrong";
   res.status(statusCode).send(message);
 });
 
