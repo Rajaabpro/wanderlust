@@ -1,5 +1,5 @@
 <% layout("layouts/bolierplate.ejs") %>
-<h3 class="mb-3">Listing Details</h3>
+<h3 class="mb-3"><%= listing.title %></h3>
 <div class="card border-0">
   <img 
     src="<%= listing.image && listing.image.url ? listing.image.url : listing.image %>" 
@@ -8,7 +8,6 @@
     class="listing-hero"
     alt="listing_image">
   <div class="card-body p-3">
-    <h5 class="card-title mb-1"><%= listing.title %></h5>
     <p class="card-text line-clamp-2"><%= listing.description %></p>
     <p class="mb-1"><span class="price">&#8377; <%= (listing.price && listing.price.toLocaleString) ? listing.price.toLocaleString('en-IN') : listing.price %></span> <span class="text-muted">/day</span></p>
     <p class="text-muted small mb-0"><%= listing.location %>, <%= listing.country %></p>
