@@ -34,6 +34,12 @@ app.get("/", (req, res) => {
   res.send("Hi, I am root");
 });
 
+const validateListing = (req, res, next) => {
+  const { error } = listingSchema.validate(req.body);
+  if (error) throw new ExpressError(400, error.message);
+  next();
+};
+
 //Index Route
 app.get("/listings", wrapAsync(async (req, res) => {
   const allListings = await Listing.find({});
