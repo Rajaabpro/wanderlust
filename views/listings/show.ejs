@@ -8,19 +8,21 @@
     class="listing-hero"
     alt="listing_image">
   <div class="card-body p-3">
+    <% for(let review of listing.reviews) { %>
+    <p><%= review.rating %></p>
+    <p><%= review.comment %></p>
+    <% } %>
     <p class="card-text line-clamp-2"><%= listing.description %></p>
     <p class="mb-1"><span class="price">&#8377; <%= (listing.price && listing.price.toLocaleString) ? listing.price.toLocaleString('en-IN') : listing.price %></span> <span class="text-muted">/day</span></p>
     <p class="text-muted small mb-0"><%= listing.location %>, <%= listing.country %></p>
   </div>
 </div>
-
 <div class="mt-3 d-flex align-items-center gap-2">
   <a href="/listings/<%= listing._id %>/edit" class="btn btn-outline-primary btn-sm">Edit</a>
   <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" class="d-inline">
     <button class="btn btn-danger btn-sm" type="submit">Delete</button>
   </form>
 </div>
-
 <section class="mt-4">
   <h4>Reviews</h4>
   <form>
