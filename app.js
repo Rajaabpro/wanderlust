@@ -6,7 +6,7 @@ const path = require("path");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
-const listingSchema = require("./schema.js");
+const Review = require("./models/review.js");
 
 main()
   .then(() => {
@@ -90,19 +90,16 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
   res.redirect("/listings");
 }));
 
-// app.get("/testListing", async (req, res) => {
-//   let sampleListing = new Listing({
-//     title: "My New Villa",
-//     description: "By the beach",
-//     price: 1200,
-//     location: "Calangute, Goa",
-//     country: "India",
-//   });
-
-//   await sampleListing.save();
-//   console.log("sample was saved");
-//   res.send("successful testing");
-// });
+//Review
+//post route
+app.post("/listings/:id/reviews", wrapAsync(async (req, res) => {
+  let { id } = req.params;
+  let listing = await Listing.findById(id);
+  let newReview = new Review(req.body.review);
+  listing.reviews.push(newReview);
+  await listing.save();
+  res.redirect(`/listings/${id}`);
+}));
 
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
