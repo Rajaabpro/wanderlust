@@ -40,6 +40,9 @@
         <h5 class="card-title"><%= review.rating %> stars</h5>
         <p class="card-text"><%= review.comment %></p>
         <p class="card-text"></p>
+        <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+          <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+        </form>
       </div>
     </div>
   <% } %>
