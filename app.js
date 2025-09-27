@@ -33,7 +33,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/listings", listingRoutes);
-
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
 });
