@@ -1,34 +1,26 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const defaultImage = "https://unsplash.com/photos/golden-mountain-peaks-at-sunset-with-dramatic-clouds-IyhdFcaRYqE";
 const Review = require("./review");
+
 const listingSchema = new Schema({
-    title:{
+    title: {
         type: String, 
         required: true
     },
     description: String,
     image: {
-        url: {
-            type: String,
-            default: defaultImage,
-            set: (v) => v === "" ? defaultImage : v,
-        },
-        filename: {
-            type: String,
-            default: "listingimage"
-        }
+        url: String,
+        filename: String
     },
     price: Number,
     location: String,
     country: String,
-    reviews: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Review"
-        }
-    ]
+    reviews: [{
+        type: Schema.Types.ObjectId,
+        ref: "Review"
+    }]
 });
+
 listingSchema.post("findOneAndDelete", async function (doc) {
     if (doc) {
         await Review.deleteMany({
@@ -36,6 +28,6 @@ listingSchema.post("findOneAndDelete", async function (doc) {
         });
     }
 });
- 
+
 const Listing = mongoose.model("Listing", listingSchema);
 module.exports = Listing;
