@@ -22,7 +22,6 @@ router.get("/:id", wrapAsync(async (req, res) => {
 }));
 
 router.post("/", wrapAsync(async (req, res) => {
-    if (!req.body.listing) throw new ExpressError(400, "Invalid Listing Data");
     const { error } = listingSchema.validate(req.body);
     if (error) throw new ExpressError(400, error.message);
     const newListing = new Listing(req.body.listing);
@@ -67,4 +66,4 @@ router.delete("/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
     res.redirect(`/listings/${id}`);
 }));
 
-  module.exports = router;
+module.exports = router;
