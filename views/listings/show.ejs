@@ -33,5 +33,15 @@
   <% for(let review of listing.reviews) { %>
     <li><%= review.comment %> <%= review.rating %> stars</li>
   <% } %>
+  <p><b>All reviews:</b></p>
+  <% for(let review of listing.reviews) { %>
+    <div class="card mb-2 border-0 shadow-sm rounded-3 p-2 bg-light row">
+      <div class="card-body">
+        <h5 class="card-title"><%= review.rating %> stars</h5>
+        <p class="card-text"><%= review.comment %></p>
+        <p class="card-text"></p>
+      </div>
+    </div>
+  <% } %>
 
 </section>
