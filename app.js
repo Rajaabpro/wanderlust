@@ -5,9 +5,11 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const listingRoutes = require("./routes/listing.js");
-const ExpressError = require("./utils/ExpressError.js");
+const reviewRoutes = require("./routes/reviews.js");
 const session = require("express-session");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const flash = require("connect-flash");
+const ExpressError = require("./utils/ExpressError.js");
 
 
 const sessionConfig = {
@@ -20,8 +22,23 @@ const sessionConfig = {
     httpOnly: true,
   }
 }
-
+app.get("/", (req, res) => {
+  res.send("Hi, I am root");
+});
 app.use(session(sessionConfig));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
+app.use((err, req, res, next) => {
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = "Oh No, Something Went Wrong!";
+  res.status(statusCode).render("error.ejs", { err });
+  next();
+});
 
 main()
   .then(() => {
@@ -42,10 +59,9 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.engine("ejs", ejsMate);
 
-app.get("/", (req, res) => {
-  res.send("Hi, I am root");
-});
+
 app.use("/listings", listingRoutes);
+app.use("/listings/:id/reviews", reviewRoutes);
 
 
 app.listen(3000, () => {
