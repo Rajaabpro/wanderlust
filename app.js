@@ -15,8 +15,6 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const user = require("./models/user.js");
 const userRoutes = require("./routes/user.js");
-const reviewRoutes = require("./routes/reviews.js");
-const listingRoutes = require("./routes/listing.js");
 
 const sessionConfig = {
   secret: "secret",
