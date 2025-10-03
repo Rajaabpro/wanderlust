@@ -18,7 +18,7 @@ router.post("/signup", wrapAsync(async (req, res) => {
     res.redirect("/listings");
     } catch (e) {
         req.flash("error", e.message);
-        res.redirect("/signup");
+        res.redirect("/users/signup");
     }
 }));
 
@@ -26,7 +26,7 @@ router.get("/login", (req, res) => {
     res.render("users/login.ejs");
 });
 
-router.post("/login", passport.authenticate("local", { failureRedirect: "/login" }), (req, res) => {
+router.post("/login", passport.authenticate("local", { failureRedirect: "/users/login" }), (req, res) => {
     req.flash("success", "Welcome to Wanderlust again");
     res.redirect("/listings");
 });
