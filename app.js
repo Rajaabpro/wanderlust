@@ -13,6 +13,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const user = require("./models/user.js");
 
 const sessionConfig = {
   secret: "secret",
@@ -32,12 +33,27 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
 });
+app.get("/demo", async (req, res) => {
+  let fakeUser = new User({
+    username: "fake", 
+    email: "fake@fake.com",
+    password: "fake"
+  });
+  let registeredUser = await User.register(fakeUser, "fake");
+  res.send(registeredUser);
+});
+
+
+
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
   if (!err.message) err.message = "Oh No, Something Went Wrong!";
