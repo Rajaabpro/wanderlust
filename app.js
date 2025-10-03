@@ -14,6 +14,9 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const user = require("./models/user.js");
+const userRoutes = require("./routes/user.js");
+const reviewRoutes = require("./routes/reviews.js");
+const listingRoutes = require("./routes/listing.js");
 
 const sessionConfig = {
   secret: "secret",
@@ -83,7 +86,7 @@ app.engine("ejs", ejsMate);
 
 app.use("/listings", listingRoutes);
 app.use("/listings/:id/reviews", reviewRoutes);
-
+app.use("/users", userRoutes);
 
 app.listen(3000, () => {
   console.log("server is listening on port 3000");
