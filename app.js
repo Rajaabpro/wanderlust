@@ -43,15 +43,6 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   next();
 });
-app.get("/demo", async (req, res) => {
-  let fakeUser = new User({
-    username: "fake", 
-    email: "fake@fake.com",
-    password: "fake"
-  });
-  let registeredUser = await User.register(fakeUser, "fake");
-  res.send(registeredUser);
-});
 
 
 
