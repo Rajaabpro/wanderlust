@@ -10,7 +10,9 @@ const session = require("express-session");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const flash = require("connect-flash");
 const ExpressError = require("./utils/ExpressError.js");
-
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
 
 const sessionConfig = {
   secret: "secret",
@@ -27,6 +29,9 @@ app.get("/", (req, res) => {
 });
 app.use(session(sessionConfig));
 app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
