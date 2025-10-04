@@ -32,25 +32,25 @@ router.post("/", wrapAsync(async (req, res) => {
     res.redirect("/listings");
 }));
 
-router.get("/:id/edit", wrapAsync(async (req, res) => {
+router.get("/:id/edit", isLoggedIn, wrapAsync(async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id);
     res.render("listings/edit.ejs", { listing });
 }));
 
-router.put("/:id", wrapAsync(async (req, res) => {
+router.put("/:id", isLoggedIn, wrapAsync(async (req, res) => {
     const { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     res.redirect(`/listings/${id}`);
 }));
 
-router.delete("/:id", wrapAsync(async (req, res) => {
+router.delete("/:id", isLoggedIn, wrapAsync(async (req, res) => {
     const { id } = req.params;
     await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
 }));
 
-router.post("/:id/reviews", wrapAsync(async (req, res) => {
+router.post("/:id/reviews", isLoggedIn, wrapAsync(async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id);
     const { error } = reviewSchema.validate(req.body);
@@ -62,7 +62,7 @@ router.post("/:id/reviews", wrapAsync(async (req, res) => {
     res.redirect(`/listings/${id}`);
 }));
 
-router.delete("/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
+router.delete("/:id/reviews/:reviewId", isLoggedIn, wrapAsync(async (req, res) => {
     const { id, reviewId } = req.params;
     await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
