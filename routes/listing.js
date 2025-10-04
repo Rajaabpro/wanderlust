@@ -17,13 +17,13 @@ router.get("/new", isLoggedIn, (req, res) => {
     res.render("listings/new.ejs");
 });
 
-router.get("/:id", wrapAsync(async (req, res) => {
+router.get("/:id", isLoggedIn, wrapAsync(async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id).populate("reviews");
     res.render("listings/show.ejs", { listing });
 }));
 
-router.post("/", wrapAsync(async (req, res) => {
+router.post("/", isLoggedIn, wrapAsync(async (req, res) => {
     const { error } = listingSchema.validate(req.body);
     if (error) throw new ExpressError(400, error.message);
     const newListing = new Listing(req.body.listing);
