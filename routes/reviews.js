@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync.js");
-const reviewController = require("../controllers/review.js");
+const reviewController = require("../controllers/reviews.js");
 const {validateReview, isLoggedIn} = require("../middleware.js");
+
 //Post Review Route
 router.post(
     "/",
