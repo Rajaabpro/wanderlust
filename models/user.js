@@ -7,6 +7,10 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    avatar: {
+        type: String,
+        default: null
+    }
 });
 
 userSchema.plugin(passportLocalMongoose);
