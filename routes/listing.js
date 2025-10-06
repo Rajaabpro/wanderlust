@@ -1,23 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const { isLoggedIn } = require("../middleware.js");
+const { isLoggedIn, validateListing, isOwner } = require("../middleware.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const { index, new: newListing, showListing, createListing, editListing, updateListing, deleteListing, createReview, deleteReview } = require("../controllers/listings.js");
 
+router.route("/")
+    .get(wrapAsync(index))
+    .post(isLoggedIn, validateListing, wrapAsync(createListing));
 
-router.get("/", wrapAsync(index));
+router.get("/new", isLoggedIn, wrapAsync(newListing));
 
-router.get("/new", isLoggedIn, newListing);
-
-router.post("/", isLoggedIn, wrapAsync(createListing));
-
-router.get("/:id", wrapAsync(showListing));
+router.route("/:id")
+    .get(wrapAsync(showListing))
+    .put(isLoggedIn, isOwner, validateListing, wrapAsync(updateListing))
+    .delete(isLoggedIn, isOwner, wrapAsync(deleteListing));
 
 router.get("/:id/edit", isLoggedIn, wrapAsync(editListing));
-
-router.put("/:id", isLoggedIn, wrapAsync(updateListing));
-
-router.delete("/:id", isLoggedIn, wrapAsync(deleteListing));
 
 router.post("/:id/reviews", isLoggedIn, wrapAsync(createReview));
 
