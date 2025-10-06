@@ -19,11 +19,32 @@
   </form>
 </div>
 <% } %>
-
+<br>
 <section class="mt-4">
+       <label for="starability-no-rate" title="No rating" style="font-weight:bold;">Leave a review </label>
+
   <form method="POST" action="/listings/<%= listing._id %>/reviews">
     <label for="rating">Rating</label>
-    <input id="rating" type="number" name="review[rating]" min="1" max="5" value="5" class="form-control" />
+    
+    <fieldset class="starability-slot">
+      <input type="radio" id="starability-no-rate" name="review[rating]" value="0" />
+      
+      <input type="radio" id="starability-1" name="review[rating]" value="1" />
+      <label for="starability-1" title="Terrible">1 star</label>
+      
+      <input type="radio" id="starability-2" name="review[rating]" value="2" />
+      <label for="starability-2" title="Not good">2 stars</label>
+      
+      <input type="radio" id="starability-3" name="review[rating]" value="3" />
+      <label for="starability-3" title="Average">3 stars</label>
+      
+      <input type="radio" id="starability-4" name="review[rating]" value="4" />
+      <label for="starability-4" title="Very good">4 stars</label>
+
+      <input type="radio" id="starability-5" name="review[rating]" value="5" />
+      <label for="starability-5" title="Excellent">5 stars</label>
+    </fieldset>
+    
     <div class="mt-2">
       <label for="comment">Comment</label>
       <textarea id="comment" name="review[comment]" class="form-control" rows="3"></textarea>
@@ -34,7 +55,8 @@
   <% for(let review of listing.reviews) { %>
     <div class="card mb-2 border-0 shadow-sm rounded-3 p-2 bg-light">
       <div class="card-body">
-        <h5 class="card-title"><%= review.rating %> stars</h5>
+        <h5 class="card-title" style="font-weight:light;"><%= review.rating %> stars</h5>
+        <div class="starability-result" data-rating="<%= review.rating %>"></div>
         <p class="card-text"><%= review.comment %></p>
         <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
           <button class="btn btn-danger btn-sm" type="submit">Delete</button>
