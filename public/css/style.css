@@ -1,0 +1,48 @@
+.square-thumb {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card.h-100 {
+  height: 100%;
+}
+
+.card-body.d-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Footer */
+.site-footer{
+  width:100%;
+  background-color:#fff;
+  border-top:1px solid #e5e5e5;
+  margin-top:32px;
+}
+.f-info{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+  padding:20px 0 24px;
+  color:#555;
+}
+.f-info-socials a, .f-info-links a{
+  color:inherit;
+  text-decoration:none;
+  margin-right:12px;
+}
+.f-info-socials a:hover, .f-info-links a:hover{
+  text-decoration:underline;
+}
+
