@@ -44,6 +44,9 @@ module.exports.updateListing = async (req, res) => {
         listing.image.url = url;
         listing.image.filename = filename;
     }
+    let originaImageUrl = listing.image.url;
+    originalImageUrl = originalImageUrl.replace("/uploads","upload/w_400");
+    listing.image.url = originalImageUrl;
     await listing.save();
     res.redirect(`/listings/${id}`);
 }
