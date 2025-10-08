@@ -1,6 +1,6 @@
 <% layout("layouts/bolierplate.ejs") %>
 <h3 class="mb-3">Create a New Listing</h3>
-<form method="POST" action="/listings" class="row g-3 needs-validation" novalidate>
+<form method="POST" action="/listings" class="row g-3 needs-validation" enctype="multipart/form-data">
   <div class="col-12">
     <label class="form-label">Title</label>
     <input name="listing[title]" type="text" class="form-control" placeholder="Enter title" />
@@ -10,11 +10,11 @@
     <textarea name="listing[description]" class="form-control" rows="3" placeholder="Enter description"></textarea>
   </div>
   <div class="col-12 col-md-6">
-    <label class="form-label">Image URL</label>
-    <input name="listing[image][url]" type="text" class="form-control" placeholder="https://..." />
+    <label class="form-label">Image</label>
+    <input name="listing[image][url]" type="file" class="form-control"  />
   </div>
   <div class="col-6 col-md-3">
-    <label class="form-label">Price (₹)</label>
+    <label class="form-label">Price (Rs)</label>
     <input name="listing[price]" type="number" class="form-control" placeholder="0" min="0" required />
   </div>
   <div class="col-6 col-md-3">
