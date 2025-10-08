@@ -2,25 +2,29 @@ const express = require("express");
 const router = express.Router();
 const { isLoggedIn, validateListing, isOwner } = require("../middleware.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-const { index, new: newListing, showListing, createListing, editListing, updateListing, deleteListing, createReview, deleteReview } = require("../controllers/listings.js");
+const listingController = require("../controllers/listings.js");
 const multer = require("multer");
 const { storage } = require("../cloudConfig.js");
 const upload = multer({ storage });
 router.route("/")
-    .get(wrapAsync(index))
-    .post(isLoggedIn, validateListing, wrapAsync(createListing));
+    .get(wrapAsync(listingController.index))
+    .post(
+        isLoggedIn, 
+        validateListing,
+        upload.single("listing[image][url]"),
+        wrapAsync(listingController.createListing));
 
-router.get("/new", isLoggedIn, wrapAsync(newListing));
+router.get("/new", isLoggedIn, listingController.new);
 
 router.route("/:id")
-    .get(wrapAsync(showListing))
-    .put(isLoggedIn, isOwner, validateListing, wrapAsync(updateListing))
-    .delete(isLoggedIn, isOwner, wrapAsync(deleteListing));
+    .get(wrapAsync(listingController.showListing))
+    .put(isLoggedIn, isOwner, validateListing, wrapAsync(listingController.updateListing))
+    .delete(isLoggedIn, isOwner, wrapAsync(listingController.deleteListing));
 
-router.get("/:id/edit", isLoggedIn, wrapAsync(editListing));
+router.get("/:id/edit", isLoggedIn, wrapAsync(listingController.editListing));
 
-router.post("/:id/reviews", isLoggedIn, wrapAsync(createReview));
+router.post("/:id/reviews", isLoggedIn, wrapAsync(listingController.createReview));
 
-router.delete("/:id/reviews/:reviewId", isLoggedIn, wrapAsync(deleteReview));
+router.delete("/:id/reviews/:reviewId", isLoggedIn, wrapAsync(listingController.deleteReview));
 
 module.exports = router;
