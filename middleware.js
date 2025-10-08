@@ -8,41 +8,47 @@ module.exports.isLoggedIn = (req, res, next) => {
         return res.redirect("/users/login");
     }
     next();
-}
-
+};
 
 module.exports.saveRedirectUrl = (req, res, next) => {
     if (req.session.redirectUrl) {
         res.locals.redirectUrl = req.session.redirectUrl;
     }
     next();
-}
+};
 
 module.exports.isOwner = async (req, res, next) => {
-    const { currentUser } = req;
-    const { id } = req.params;
-    const listing = await Listing.findById(id);
-    if (!currentUser || !listing.owner.equals(currentUser._id)) {
-        req.flash("error", "You are not authorized to do that");
-        return res.redirect(`/listings/${id}`);
+    try {
+        const { id } = req.params;
+        const listing = await Listing.findById(id);
+        if (!listing) {
+            req.flash("error", "Listing not found");
+            return res.redirect("/listings");
+        }
+        if (!req.user || !listing.owner.equals(req.user._id)) {
+            req.flash("error", "You are not authorized to do that");
+            return res.redirect(`/listings/${id}`);
+        }
+        next();
+    } catch (err) {
+        next(err);
     }
-    next();
-}
+};
 
 module.exports.validateListing = (req, res, next) => {
-    let { error } = listingSchema.validate(req.body);
+    const { error } = listingSchema.validate(req.body);
     if (error) {
         req.flash("error", error.message);
         return res.redirect(`/listings/${req.params.id}`);
     }
     next();
-}
+};
 
 module.exports.validateReview = (req, res, next) => {
-    let { error } = reviewSchema.validate(req.body);
+    const { error } = reviewSchema.validate(req.body);
     if (error) {
         req.flash("error", error.message);
         return res.redirect(`/listings/${req.params.id}`);
     }
     next();
-}
+};
