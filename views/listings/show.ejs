@@ -1,4 +1,7 @@
 <% layout("layouts/bolierplate.ejs") %>
+<script>
+  const mapToken = "<%= process.env.MAP_TOKEN %>";
+</script>
 <h3 class="mb-3"><%= listing.title %></h3>
 <div class="card border-0">
   <img src="<%= listing.image && listing.image.url ? listing.image.url : listing.image %>" class="listing-hero" alt="listing_image">
@@ -66,3 +69,5 @@
   <% } %>
 
 </section>
+
+<script src="/js/map.js"></script>
