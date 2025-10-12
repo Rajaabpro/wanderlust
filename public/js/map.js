@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-const marker = new mapboxgl.Marker()
-  .setLngLat(listingCoordinates)
-  .addTo(map);
+console.log(coordinates);
+// const marker = new mapboxgl.Marker()
+//   .setLngLat(listingCoordinates)
+//   .addTo(map);
