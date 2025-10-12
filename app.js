@@ -21,12 +21,18 @@ const User = require("./models/user.js");
 const user = require("./models/user.js");
 const userRoutes = require("./routes/user.js");
 
+const dbUrl = "mongodb://127.0.0.1:27017/wanderlust";
+
 const store = mongoStore.create({
   mongoUrl: dbUrl,
   crypto: {
     secret:"secret",
   },
   touchAfter: 24 * 3600,
+});
+
+store.on("error", function(e) {
+  console.log("SESSION STORE ERROR", e);
 });
 
 const sessionConfig = {
@@ -67,10 +73,9 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
   if (!err.message) err.message = "Oh No, Something Went Wrong!";
-  res.status(statusCode).render("error.ejs", { err });
+  res.status(statusCode).send(`<h1>Error ${statusCode}</h1><p>${err.message}</p>`);
   next();
 });
-const dbUrl = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/wanderlust";
 main()
   .then(() => {
     console.log("connected to DB");
