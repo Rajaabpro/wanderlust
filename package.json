@@ -1,4 +1,9 @@
 {
+  
+    "engines": {
+      "node": "22.14.0"
+    },
+  
   "name": "majorprojects",
   "version": "1.0.0",
   "description": "",
