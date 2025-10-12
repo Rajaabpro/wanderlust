@@ -11,7 +11,8 @@ const ejsMate = require("ejs-mate");
 const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/reviews.js");
 const session = require("express-session");
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const mongoStore = require("connect-mongo");
+  // const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const flash = require("connect-flash");
 const ExpressError = require("./utils/ExpressError.js");
 const passport = require("passport");
@@ -57,7 +58,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error.ejs", { err });
   next();
 });
-
+const dbUrl = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/wanderlust";
 main()
   .then(() => {
     console.log("connected to DB");
@@ -67,7 +68,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbUrl);
 }
 
 app.set("view engine", "ejs");
