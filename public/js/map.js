@@ -30,6 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 console.log(coordinates);
-// const marker = new mapboxgl.Marker()
-//   .setLngLat(listingCoordinates)
-//   .addTo(map);
+const marker = new mapboxgl.Marker()
+  .setLngLat(coordinates)
+  .addTo(map);
