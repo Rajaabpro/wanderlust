@@ -12,7 +12,6 @@ const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/reviews.js");
 const session = require("express-session");
 const mongoStore = require("connect-mongo");
-  // const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const flash = require("connect-flash");
 const ExpressError = require("./utils/ExpressError.js");
 const passport = require("passport");
@@ -26,7 +25,7 @@ const dbUrl = "mongodb://127.0.0.1:27017/wanderlust";
 const store = mongoStore.create({
   mongoUrl: dbUrl,
   crypto: {
-    secret:"secret",
+    secret:process.env.SECRET,
   },
   touchAfter: 24 * 3600,
 });
@@ -37,7 +36,7 @@ store.on("error", function(e) {
 
 const sessionConfig = {
   store,
-  secret: "secret",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
