@@ -20,12 +20,13 @@ const User = require("./models/user.js");
 const user = require("./models/user.js");
 const userRoutes = require("./routes/user.js");
 
-const dbUrl = "mongodb://127.0.0.1:27017/wanderlust";
+const dburl = "mongodb://127.0.0.1:27017/wanderlust";
+const mongourl = process.env.MONGO_URI;
 
 const store = mongoStore.create({
-  mongoUrl: dbUrl,
+  mongoUrl: mongourl,
   crypto: {
-    secret:process.env.SECRET,
+    secret: process.env.SECRET,
   },
   touchAfter: 24 * 3600,
 });
@@ -45,12 +46,6 @@ const sessionConfig = {
     httpOnly: true,
   }
 }
-// app.get("/", (req, res) => {
-//   res.send("Hi, I am root");
-// });
-
-
-sessionConfig.store = store;
 app.use(session(sessionConfig));
 app.use(flash());
 
@@ -84,7 +79,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(dbUrl);
+  await mongoose.connect(mongourl);
 }
 
 app.set("view engine", "ejs");
