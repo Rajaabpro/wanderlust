@@ -20,6 +20,8 @@ module.exports.saveRedirectUrl = (req, res, next) => {
 module.exports.isOwner = async (req, res, next) => {
     try {
         const { id } = req.params;
+         console.log("Inside isOwner. Params:", req.params);
+    console.log("Body:", req.body);
         const listing = await Listing.findById(id);
         if (!listing) {
             req.flash("error", "Listing not found");
@@ -39,7 +41,7 @@ module.exports.validateListing = (req, res, next) => {
     const { error } = listingSchema.validate(req.body);
     if (error) {
         req.flash("error", error.message);
-        return res.redirect(`/listings/${req.params.id}`);
+        return res.redirect("/listings/new");
     }
     next();
 };
