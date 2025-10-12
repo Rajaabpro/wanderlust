@@ -10,15 +10,14 @@ router.route("/")
     .get(wrapAsync(listingController.index))
     .post(
         isLoggedIn, 
-        validateListing,
-        upload.single("listing[image][url]"),
+        upload.single("listing[image]"),
         wrapAsync(listingController.createListing));
 
 router.get("/new", isLoggedIn, listingController.new);
 
 router.route("/:id")
     .get(wrapAsync(listingController.showListing))
-    .put(isLoggedIn, isOwner, validateListing, wrapAsync(listingController.updateListing))
+    .put(isLoggedIn, isOwner, upload.single("listing[image]"), wrapAsync(listingController.updateListing))
     .delete(isLoggedIn, isOwner, wrapAsync(listingController.deleteListing));
 
 router.get("/:id/edit", isLoggedIn, wrapAsync(listingController.editListing));
