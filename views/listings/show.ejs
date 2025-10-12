@@ -1,6 +1,8 @@
 <% layout("layouts/bolierplate.ejs") %>
 <script>
-  const mapToken = "<%= process.env.MAP_TOKEN %>";
+  const mapToken = "<%= mapToken %>";
+  const listingCoordinates = <%= JSON.stringify(listingCoordinates) %>;
+  const coordinates = <%= JSON.stringify(listing.geometry.coordinates) %>;
 </script>
 <h3 class="mb-3"><%= listing.title %></h3>
 <div class="card border-0">
@@ -23,6 +25,10 @@
 </div>
 <% } %>
 <br>
+  <div class="mt-3 mb-3">
+    <h3>Where you'll be</h3>
+    <div id="map"></div>
+</div>
 <section class="mt-4">
        <label for="starability-no-rate" title="No rating" style="font-weight:bold;">Leave a review </label>
 
