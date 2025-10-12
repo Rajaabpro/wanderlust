@@ -1,8 +1,8 @@
 <% layout("layouts/bolierplate.ejs") %>
 <script>
   const mapToken = "<%= mapToken %>";
-  const listingCoordinates = <%= JSON.stringify(listingCoordinates) %>;
-  const coordinates = <%= JSON.stringify(listing.geometry.coordinates) %>;
+  const listingCoordinates = <%= JSON.stringify(listing.geometry.coordinates) %>;
+  const listingTitle = "<%= listing.title %>";
 </script>
 <h3 class="mb-3"><%= listing.title %></h3>
 <div class="card border-0">
