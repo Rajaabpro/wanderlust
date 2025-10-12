@@ -21,7 +21,16 @@ const User = require("./models/user.js");
 const user = require("./models/user.js");
 const userRoutes = require("./routes/user.js");
 
+const store = mongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret:"secret",
+  },
+  touchAfter: 24 * 3600,
+});
+
 const sessionConfig = {
+  store,
   secret: "secret",
   resave: false,
   saveUninitialized: true,
@@ -34,6 +43,9 @@ const sessionConfig = {
 // app.get("/", (req, res) => {
 //   res.send("Hi, I am root");
 // });
+
+
+sessionConfig.store = store;
 app.use(session(sessionConfig));
 app.use(flash());
 
