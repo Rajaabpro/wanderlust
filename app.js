@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
-console.log(process.env.KEY);
+console.log("MONGO_URI:", process.env.MONGO_URI);
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -20,9 +20,7 @@ const User = require("./models/user.js");
 const user = require("./models/user.js");
 const userRoutes = require("./routes/user.js");
 
-const dburl = "mongodb://127.0.0.1:27017/wanderlust";
-const mongourl = process.env.MONGO_URI;
-
+const mongourl = process.env.MONGO_URI || "mongodb://154.192.156.13:27017/wanderlust";
 const store = mongoStore.create({
   mongoUrl: mongourl,
   crypto: {
@@ -79,7 +77,12 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(mongourl);
+  await mongoose.connect(mongourl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
+  });
 }
 
 app.set("view engine", "ejs");
