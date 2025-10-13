@@ -1,0 +1,9 @@
+{
+    "note": "Hey Vercel! Don’t run these files on the Edge. Use Node.js runtime (normal server environment) instead.",
+    "functions": {
+      "api/**/*.js": {
+        "runtime": "nodejs20.x"
+      }
+    }
+  }
+  
