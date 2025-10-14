@@ -85,7 +85,6 @@ WanderLust is a full-featured Airbnb-style travel listings application built wit
 **Development & Deployment:**
 - **Dotenv** – environment variable management
 - **Method-Override** – HTTP method override for RESTful routes
-- **Vercel** – cloud deployment platform (Node.js 20.x runtime)
 - **Nodemon** – development server with auto-restart
 
 ---
