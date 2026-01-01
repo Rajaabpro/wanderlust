@@ -80,7 +80,7 @@ WanderLust is a full-featured Airbnb-style travel listings application built wit
 - **Bootstrap 5** – responsive CSS framework
 - **Bootstrap Icons + Font Awesome** – icon libraries (CDN)
 - **Mapbox GL JS** – interactive maps and geolocation
-- **Custom CSS** – additional styling and responsive design
+- **Custom CSS**  – additional styling and responsive design
 
 **Development & Deployment:**
 - **Dotenv** – environment variable management
